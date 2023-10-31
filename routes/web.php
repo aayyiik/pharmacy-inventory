@@ -22,7 +22,7 @@ Route::get('/', function () {
 Route::get('/index', [AdminController::class, 'index']);
 
 // User
-Route::get('/users',[AdminController::class,'index'] );
+Route::get('/users',[AdminController::class,'user'] );
 Route::get('/users/create',[AdminController::class,'create']) ;
 Route::get('users/{id}/edit', [AdminController::class,'edit']);
 Route::post('users/{id}/update', [AdminController::class,'update']);

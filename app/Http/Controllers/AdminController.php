@@ -14,7 +14,7 @@ class AdminController extends Controller
 
     public function user() {
         $users = User::all();
-        return view('users.index',['users' => $users], compact('kotas','roles'));
+        return view('admin.user',['users' => $users]);
     }
     
     public function create(Request $request){
