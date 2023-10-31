@@ -17,36 +17,37 @@ class AdminController extends Controller
         return view('admin.user',['users' => $users]);
     }
     
-    public function create(Request $request){
+    public function create(){
+        return view('admin.user-create');
+    }
+    public function store(Request $request){
  
         //insert ke table user
         User::create([
-
-            'id_kota' => request('id_kota'),
-            'id_role' => request('id_role'),
-            'nama_user' => request('nama_user'),
-            'alamat' => request('alamat'),
-            'telp' => request('telp'),
+            'name' => request('name'),
+            'address' => request('address'),
+            'no_telp' => request('no_telp'),
             'email' => request('email'),    
             'password'=>bcrypt('rahasia'),
-            'remember_token' => Str::random(10),
+            'role' => request('role'),
+            'status' => 1,
        ]);
       
       return redirect ('/users')->with('sukses','Data Berhasil Diinput');
     }
-    public function edit ($id_user){
-        $users = \App\Models\User::find($id_user);
-        return view('users/edit',['users' => $users]);
+    public function edit ($id){
+        $users = \App\Models\User::find($id);
+        return view('admin.user-edit',['users' => $users]);
     }
   
-    public function update (Request $request,$id_user){
-        $user = \App\Models\User::find($id_user);
+    public function update (Request $request,$id){
+        $user = \App\Models\User::find($id);
         $user->update($request->all());
         return redirect('/users')->with('sukses','Data Berhasil diupdate');
     }
   
-    public function delete ($id_user){
-        $user = \App\Models\User::find($id_user);
+    public function delete ($id){
+        $user = \App\Models\User::find($id);
         $user->delete($user);
         return redirect('/users')->with('sukses','Data Berhasil dihapus');
     }
