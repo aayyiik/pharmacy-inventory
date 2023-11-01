@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PegawaiController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,13 @@ Route::get('/', function () {
 
 //===== Admin
 Route::get('/index', [AdminController::class, 'index']);
+Route::get('/dashboard', [AuthController::class, 'dashboard']);
+
+Route::get('/register', [AuthController::class, 'register']);
+Route::post('/register_post',[AuthController::class,'register_post']);
+
+Route::get('/login', [AuthController::class, 'login']);
+Route::post('/login_post',[AuthController::class,'login_post']);
 
 // User
 Route::get('/users',[AdminController::class,'user'] );

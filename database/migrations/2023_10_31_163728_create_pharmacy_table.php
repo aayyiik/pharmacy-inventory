@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id');
             $table->integer('stok');
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('category_id')->references('id')->on('category');
         });
     }
