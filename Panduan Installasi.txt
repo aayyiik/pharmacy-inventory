@@ -1,0 +1,33 @@
+Selamat datang dalam proyek Laravel Inventori Farmasi! Kami sangat senang bahwa Anda tertarik untuk menginstal proyek ini. Proyek ini didesain untuk memberikan layanan data tentang apotek dalam format JSON melalui API.
+
+Berikut adalah tahapan-tahapan yang perlu Anda ikuti untuk menginstal proyek Laravel ini:
+
+Langkah 1: Persiapan Awal
+
+Pastikan telah menginstal PHP dan Composer di komputer. Jika belum,  dapat mengunduhnya dan mengikuti petunjuk instalasinya dari situs resminya.
+
+Langkah 2: Pengunduhan Proyek
+Proyek ini dapat mengunduh proyek Laravel kami dari repositori GitHub kami atau menerima file ZIP proyek -> https://github.com/aayyiik/pharmacy-inventory
+
+Langkah 3: Mengatur Koneksi Database
+
+Buka file .env di dalam direktori proyek.
+Sesuaikan pengaturan koneksi database sesuai dengan preferensi. Disini saya membuat dengan Postgre. Sesuaikan username dan password postgre yang dimiliki.
+
+Langkah 4: Membuat Tabel "pharmacy"
+
+Untuk membuat tabel, saya telah menyiapkan migration. Gunakan perintah berikut untuk menjalankannya:
+php artisan migrate
+
+Langkah 5: Mengelola Data "Pharmacy"
+Dengan menggunakan alamat tersebut, dapat:
+
+    Melihat daftar apotek.
+    Menambahkan apotek baru.
+    Mengedit data apotek yang ada.
+    Menghapus data apotek.
+
+Proyek Laravel yang siap digunakan dengan API JSON yang terhubung ke tabel "pharmacy" siap digunakan.
+
+Terima Kasih.
+
