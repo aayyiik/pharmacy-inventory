@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Pharmacy;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
@@ -43,4 +45,48 @@ class PegawaiController extends Controller
         return redirect('/supplier')->with('sukses','Data Berhasil dihapus');
     }
   
+
+    // pharmacy
+
+    public function pharmacy() {
+        $pharmacy = Pharmacy::all();
+        return view('pegawai.pharmacy',['pharmacy' => $pharmacy]);
+    }
+    
+    public function create_pharmacy(){
+        $category = Category::all();
+        return view('pegawai.pharmacy-create', compact('category'));
+    }
+
+    public function store_pharmacy(Request $request){
+ 
+        //insert ke table user
+        pharmacy::create([
+            'kode' => request('kode'),
+            'name' => request('name'),
+            'merk' => request('merk'),
+            'category_id' => request('category_id'),
+            'stok' => 0,
+       ]);
+      
+      return redirect ('/pharmacy')->with('sukses','Data Berhasil Diinput');
+    }
+
+    public function edit_pharmacy ($id){
+        $pharmacy = \App\Models\Pharmacy::find($id);
+        $category = Category::all();
+        return view('pegawai.pharmacy-edit',compact('pharmacy','category'));
+    }
+  
+    public function update_pharmacy (Request $request,$id){
+        $pharmacy = \App\Models\Pharmacy::find($id);
+        $pharmacy->update($request->all());
+        return redirect('/pharmacy')->with('sukses','Data Berhasil diupdate');
+    }
+  
+    public function delete_pharmacy ($id){
+        $pharmacy = \App\Models\Pharmacy::find($id);
+        $pharmacy->delete($pharmacy);
+        return redirect('/pharmacy')->with('sukses','Data Berhasil dihapus');
+    }
 }

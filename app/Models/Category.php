@@ -12,4 +12,9 @@ class Category extends Model
     protected $table = 'category';
     protected $primaryKey = 'id';
     protected $fillable = ['id','name_category'];
+
+    public function pharmacy()
+    {
+        return $this->hasMany(Pharmacy::class);
+    }
 }

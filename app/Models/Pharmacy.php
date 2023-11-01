@@ -11,4 +11,9 @@ class Pharmacy extends Model
     protected $table = 'pharmacy';
     protected $primaryKey = 'id';
     protected $fillable = ['id','kode','name','category_id','merk','stok'];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class,'id');
+    }
 }
