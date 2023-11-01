@@ -9,6 +9,9 @@ use App\Models\Pharmacy;
 use App\Models\Supplier;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class PegawaiController extends Controller
 {
@@ -53,7 +56,12 @@ class PegawaiController extends Controller
 
     public function pharmacy() {
         $pharmacy = Pharmacy::all();
-        return view('pegawai.pharmacy',['pharmacy' => $pharmacy]);
+        // return view('pegawai.pharmacy',['pharmacy' => $pharmacy]);
+
+        return response()->json( [
+            "message" => "Successfully fetched user.",
+            "data" => $pharmacy
+        ], Response::HTTP_OK);
     }
     
     public function create_pharmacy(){
@@ -62,35 +70,117 @@ class PegawaiController extends Controller
     }
 
     public function store_pharmacy(Request $request){
- 
+        
+        $validator = Validator::make($request->all(), [
+            "kode" => "required",
+            "name" => "required",
+            "merk" => "required",
+            "category_id" => "required",
+            "stok" => "required"
+        ]);
+        
+        if ($validator->fails()) {
+            return response()->json([
+                "message" => "Failed creating a new Product Pharmacy",
+                "errors" => $validator->errors()->all()
+            ], Response::HTTP_NOT_ACCEPTABLE);
+        }
+
+        $validated = $validator->validated();
+
+        try{
+            $createdproduct = Pharmacy::create($validated);
+        }catch (\Exception $e){
+            return response()->json([
+                "message" => "Failed creating a new product",
+                "error" => $e->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            "message" => "Successfully creating a new product",
+            "data" => $createdproduct
+        ]);
+
         //insert ke table user
-        pharmacy::create([
-            'kode' => request('kode'),
-            'name' => request('name'),
-            'merk' => request('merk'),
-            'category_id' => request('category_id'),
-            'stok' => 0,
-       ]);
+    //     pharmacy::create([
+    //         'kode' => request('kode'),
+    //         'name' => request('name'),
+    //         'merk' => request('merk'),
+    //         'category_id' => request('category_id'),
+    //         'stok' => 0,
+    //    ]);
       
-      return redirect ('/pharmacy')->with('sukses','Data Berhasil Diinput');
+    //   return redirect ('/pharmacy')->with('sukses','Data Berhasil Diinput');
+    
     }
 
     public function edit_pharmacy ($id){
-        $pharmacy = \App\Models\Pharmacy::find($id);
-        $category = Category::all();
-        return view('pegawai.pharmacy-edit',compact('pharmacy','category'));
+        // $pharmacy = \App\Models\Pharmacy::find($id);
+        // $category = Category::all();
+        // return view('pegawai.pharmacy-edit',compact('pharmacy','category'));
+
+        $pharmacy = Pharmacy::findOrFail($id);
+        return response()->json([
+            "message" => "Successfully updated a new product",
+            "data" => $pharmacy
+        ]);
     }
   
     public function update_pharmacy (Request $request,$id){
-        $pharmacy = \App\Models\Pharmacy::find($id);
-        $pharmacy->update($request->all());
-        return redirect('/pharmacy')->with('sukses','Data Berhasil diupdate');
+        // $pharmacy = \App\Models\Pharmacy::find($id);
+        // $pharmacy->update($request->all());
+        // return redirect('/pharmacy')->with('sukses','Data Berhasil diupdate');
+
+        $validator = Validator::make($request->all(), [
+            "kode" => "string",
+            "name" => "string",
+            "merk" => "string",
+            "category_id" => "string",
+            "stok" => "string"
+        ]);
+        
+        if ($validator->fails()) {
+            return response()->json([
+                "message" => "Failed creating a new Product Pharmacy",
+                "errors" => $validator->errors()->all()
+            ], Response::HTTP_NOT_ACCEPTABLE);
+        }
+
+        $validated = $validator->validated();
+
+        try{
+            $pharmacy = Pharmacy::findOrFail($id);
+            $pharmacy->update($validated);
+        }catch (\Exception $e){
+            return response()->json([
+                "message" => "Failed creating a new product",
+                "error" => $e->getMessage()
+            ]);
+        }
+
+        return response()->json([
+            "message" => "Successfully updated a new product",
+            "data" => $pharmacy
+        ]);
+
     }
   
     public function delete_pharmacy ($id){
-        $pharmacy = \App\Models\Pharmacy::find($id);
-        $pharmacy->delete($pharmacy);
-        return redirect('/pharmacy')->with('sukses','Data Berhasil dihapus');
+        // $pharmacy = \App\Models\Pharmacy::find($id);
+        // $pharmacy->delete($pharmacy);
+        // return redirect('/pharmacy')->with('sukses','Data Berhasil dihapus');
+
+
+        $pharmacy = Pharmacy::findOrFail($id);
+        $pharmacy->delete();
+
+        return response()->json([
+            "message" => "Successfully deleted a new product",
+            "data" => $pharmacy
+        ]);
+
+        
     }
 
     // barang masuk

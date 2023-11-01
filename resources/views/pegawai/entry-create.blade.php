@@ -42,6 +42,14 @@
             </div>
         </div>
     </div>
+
+    <div class="form-group row">
+        <label for="fname" class="col-sm-3 text-end control-label col-form-label">Nama Pegawai</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="user_id" value="{{ auth()->user()->name }}" disabled>
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+        </div>
+    </div>
     <div class="form-group row">
         <label for="kategori" class="col-sm-3 text-end control-label col-form-label">Nama Pegawai</label>
         <div class="col-sm-9">

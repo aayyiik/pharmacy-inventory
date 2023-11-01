@@ -29,19 +29,15 @@
                 <input type="date" class="form-control" id="fname" name="date_output" placeholder="First Name Here" value="0">
             </div>
         </div>
-  
-    <div class="form-group row">
-        <label for="kategori" class="col-sm-3 text-end control-label col-form-label">Nama Pegawai</label>
-        <div class="col-sm-9">
-            <select class="form-select" id="kategori" name="user_id">
-                @foreach ($user as $us)
-                    <option value="{{ $us->id }}">
-                        {{ $us->name }}
-                    </option>
-                @endforeach
-            </select>
+
+        <div class="form-group row">
+            <label for="fname" class="col-sm-3 text-end control-label col-form-label">Nama Pegawai</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="user_id" value="{{ auth()->user()->name }}" disabled>
+                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+            </div>
         </div>
-    </div>  
+
 
     <div class="form-group row">
         <label for="fname" class="col-sm-3 text-end control-label col-form-label">Deskripsi</label>

@@ -30,6 +30,8 @@ Route::post('/register_post',[AuthController::class,'register_post']);
 Route::get('/login', [AuthController::class, 'login']);
 Route::post('/login_post',[AuthController::class,'login_post']);
 
+Route::get('logout', [AuthController::class, 'logout']);
+
 // User
 Route::get('/users',[AdminController::class,'user'] );
 Route::get('/users/create',[AdminController::class,'create']);

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
@@ -15,12 +16,14 @@ class AdminController extends Controller
 
     public function user() {
         $users = User::all();
+
         return view('admin.user',['users' => $users]);
     }
     
     public function create(){
         return view('admin.user-create');
     }
+
     public function store(Request $request){
  
         //insert ke table user
