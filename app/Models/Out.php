@@ -13,4 +13,14 @@ class Out extends Model
     protected $table = 'out';
     protected $primaryKey = 'id';
     protected $fillable = ['id','pharmacy_id','user_id','qty','date_output','description'];
+
+    public function pharmacy()
+    {
+        return $this->belongsTo(Pharmacy::class, 'pharmacy_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

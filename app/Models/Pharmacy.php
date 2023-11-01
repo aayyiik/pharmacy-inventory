@@ -21,4 +21,9 @@ class Pharmacy extends Model
     {
         return $this->hasMany(Entry::class);
     }
+
+    public function out()
+    {
+        return $this->hasMany(Entry::class);
+    }
 }

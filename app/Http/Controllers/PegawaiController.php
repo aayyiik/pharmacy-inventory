@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Entry;
+use App\Models\Out;
 use App\Models\Pharmacy;
 use App\Models\Supplier;
 use App\Models\User;
@@ -133,5 +134,45 @@ class PegawaiController extends Controller
         return redirect('/entry')->with('success', 'Transaksi berhasil disimpan.');
     }
 
+
+    //barang keluar
+
+    public function out(){
+        $out = Out::all();
+        $pharmacy = Pharmacy::all();
+        $user = User::all();
+
+        return view('pegawai.out', compact('out', 'pharmacy', 'user'));
+    }
+
+    public function out_create(){
+        $pharmacy = Pharmacy::all();
+        $user = User::all();
+
+        return view('pegawai.out-create', compact('pharmacy','user'));
+    }
+
+
+    public function store_out(Request $request){
+        $validatedData = $request->validate([
+            'pharmacy_id' => 'required',
+            'user_id' => 'required',
+            'qty' => 'required',
+            'date_output' => 'required|date',
+            'description' => 'required'
+        ]);
     
+        $transaksi = Out::create($validatedData);
+    
+        // Update stok barang yang sesuai
+        $barang = Pharmacy::where('id', $transaksi->pharmacy_id)->first();
+        if ($barang) {
+            $barang->update([
+                'stok' => $barang->stok - $transaksi->qty
+            ]);
+        }
+    
+        return redirect('/out')->with('success', 'Transaksi berhasil disimpan.');
+    }
+
 }

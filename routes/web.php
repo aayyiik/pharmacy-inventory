@@ -61,12 +61,21 @@ Route::get('supplier/delete/{id}', [PegawaiController::class,'delete_supplier'])
 
 
 //Barang Masuk
-// supplier
+
 Route::get('/entry',[PegawaiController::class,'entry'] );
 Route::get('/entry/create',[PegawaiController::class,'entry_create']);
 Route::post('/entry/store',[PegawaiController::class,'store_entry']);
 Route::get('entry/edit/{id}', [PegawaiController::class,'edit_entry']);
 Route::post('entry/update/{id}', [PegawaiController::class,'update_entry']);
 Route::get('entry/delete/{id}', [PegawaiController::class,'delete_entry']);
+
+//Barang Keluar
+
+Route::get('/out',[PegawaiController::class,'out'] );
+Route::get('/out/create',[PegawaiController::class,'out_create']);
+Route::post('/out/store',[PegawaiController::class,'store_out']);
+Route::get('out/edit/{id}', [PegawaiController::class,'edit_out']);
+Route::post('out/update/{id}', [PegawaiController::class,'update_out']);
+Route::get('out/delete/{id}', [PegawaiController::class,'delete_out']);
 
 
