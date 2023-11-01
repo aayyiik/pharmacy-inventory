@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PegawaiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,22 @@ Route::get('category/edit/{id}', [AdminController::class,'edit_category']);
 Route::post('category/update/{id}', [AdminController::class,'update_category']);
 Route::get('category/delete/{id}', [AdminController::class,'delete_category']);
 
-// Pegawai
+// ======= Pegawai
+
+// product
+Route::get('/pharmacy',[PegawaiController::class,'pharmacy'] );
+Route::get('/pharmacy/create',[PegawaiController::class,'create_pharmacy']);
+Route::post('/pharmacy/store',[PegawaiController::class,'store_pharmacy']);
+Route::get('pharmacy/edit/{id}', [PegawaiController::class,'edit_pharmacy']);
+Route::post('pharmacy/update/{id}', [PegawaiController::class,'update_pharmacy']);
+Route::get('pharmacy/delete/{id}', [PegawaiController::class,'delete_pharmacy']);
+
+// supplier
+Route::get('/supplier',[PegawaiController::class,'supplier'] );
+Route::get('/supplier/create',[PegawaiController::class,'create_supplier']);
+Route::post('/supplier/store',[PegawaiController::class,'store_supplier']);
+Route::get('supplier/edit/{id}', [PegawaiController::class,'edit_supplier']);
+Route::post('supplier/update/{id}', [PegawaiController::class,'update_supplier']);
+Route::get('supplier/delete/{id}', [PegawaiController::class,'delete_supplier']);
 
 
