@@ -16,4 +16,9 @@ class Pharmacy extends Model
     {
         return $this->belongsTo(Category::class,'id');
     }
+
+    public function entry()
+    {
+        return $this->hasMany(Entry::class);
+    }
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Entry;
 use App\Models\Pharmacy;
 use App\Models\Supplier;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
@@ -89,4 +91,47 @@ class PegawaiController extends Controller
         $pharmacy->delete($pharmacy);
         return redirect('/pharmacy')->with('sukses','Data Berhasil dihapus');
     }
+
+    // barang masuk
+
+    public function entry(){
+        $entry = Entry::all();
+        $pharmacy = Pharmacy::all();
+        $supplier = Supplier::all();
+        $user = User::all();
+
+        return view('pegawai.entry', compact('entry', 'pharmacy', 'supplier', 'user'));
+    }
+
+    public function entry_create(){
+        $pharmacy = Pharmacy::all();
+        $supplier = Supplier::all();
+        $user = User::all();
+
+        return view('pegawai.entry-create', compact('pharmacy','supplier','user'));
+    }
+
+    public function store_entry(Request $request){
+        $validatedData = $request->validate([
+            'pharmacy_id' => 'required',
+            'supplier_id' => 'required',
+            'user_id' => 'required',
+            'qty' => 'required',
+            'date_input' => 'required|date',
+        ]);
+    
+        $transaksi = Entry::create($validatedData);
+    
+        // Update stok barang yang sesuai
+        $barang = Pharmacy::where('id', $transaksi->pharmacy_id)->first();
+        if ($barang) {
+            $barang->update([
+                'stok' => $barang->stok + $transaksi->qty
+            ]);
+        }
+    
+        return redirect('/entry')->with('success', 'Transaksi berhasil disimpan.');
+    }
+
+    
 }

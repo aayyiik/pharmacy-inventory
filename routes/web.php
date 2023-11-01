@@ -60,3 +60,13 @@ Route::post('supplier/update/{id}', [PegawaiController::class,'update_supplier']
 Route::get('supplier/delete/{id}', [PegawaiController::class,'delete_supplier']);
 
 
+//Barang Masuk
+// supplier
+Route::get('/entry',[PegawaiController::class,'entry'] );
+Route::get('/entry/create',[PegawaiController::class,'entry_create']);
+Route::post('/entry/store',[PegawaiController::class,'store_entry']);
+Route::get('entry/edit/{id}', [PegawaiController::class,'edit_entry']);
+Route::post('entry/update/{id}', [PegawaiController::class,'update_entry']);
+Route::get('entry/delete/{id}', [PegawaiController::class,'delete_entry']);
+
+

@@ -13,4 +13,22 @@ class Entry extends Model
     protected $table = 'entry';
     protected $primaryKey = 'id';
     protected $fillable = ['id','pharmacy_id','supplier_id','user_id','qty','date_input'];
+
+
+    public function pharmacy()
+    {
+        return $this->belongsTo(Pharmacy::class, 'pharmacy_id');
+    }
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'supplier_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+
 }
