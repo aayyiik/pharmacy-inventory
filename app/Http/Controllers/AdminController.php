@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -52,6 +53,53 @@ class AdminController extends Controller
         return redirect('/users')->with('sukses','Data Berhasil dihapus');
     }
   
+
+// category
+
+
+public function category() {
+    $category = Category::all();
+    return view('admin.category',['category' => $category]);
+}
+
+public function create_category(){
+    return view('admin.category-create');
+}
+public function store_category(Request $request){
+
+    //insert ke table user
+    Category::create([
+        'name_category' => request('name_category'),
+   ]);
+  
+        return redirect ('/category')->with('sukses','Data Berhasil Diinput');
+    }
+
+    public function edit_category ($id){
+        $category = \App\Models\Category::find($id);
+        return view('admin.category-edit',['category' => $category]);
+    }
+
+    public function update_category (Request $request,$id){
+        $category = \App\Models\Category::find($id);
+        $category->update($request->all());
+        return redirect('/category')->with('sukses','Data Berhasil diupdate');
+    }
+
+    public function delete_category ($id){
+        $category = \App\Models\Category::find($id);
+        $category->delete($category);
+        return redirect('/category')->with('sukses','Data Berhasil dihapus');
+    }
+
+
+
+
+
+
+
+
+
     public function trash(){
       $user = User::onlyTrashed()->get();
       return view('users.trash',['user' => $user]);

@@ -32,6 +32,13 @@ Route::get('users/trash',[AdminController::class,'trash']);
 Route::get('users/{id}/restore',[AdminController::class,'restore']);
 Route::get('users/{id}/forceDelete', [AdminController::class,'forceDelete']);
 
+// category
+Route::get('/category',[AdminController::class,'category'] );
+Route::get('/category/create',[AdminController::class,'create_category']);
+Route::post('/category/store',[AdminController::class,'store_category']);
+Route::get('category/edit/{id}', [AdminController::class,'edit_category']);
+Route::post('category/update/{id}', [AdminController::class,'update_category']);
+Route::get('category/delete/{id}', [AdminController::class,'delete_category']);
 
 // Pegawai
 

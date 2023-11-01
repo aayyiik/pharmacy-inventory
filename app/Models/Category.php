@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Model
 {
     use HasFactory;
-    protected $table = 'pharmacy';
+    protected $table = 'category';
     protected $primaryKey = 'id';
-    protected $fillable = ['id','category_name'];
+    protected $fillable = ['id','name_category'];
 }
